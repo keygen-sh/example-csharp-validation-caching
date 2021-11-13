@@ -170,7 +170,8 @@ class Keygen
     Dictionary<string, string> cache = null;
     try
     {
-      var text = File.ReadAllText($"cache/{key}.json");
+      var path = Path.Join("cache", $"{key}.json");
+      var text = File.ReadAllText(path);
 
       cache = SimpleJson.DeserializeObject<Dictionary<string, string>>(text);
     }
@@ -217,6 +218,7 @@ class Keygen
   private void SetCache(string key, IRestResponse response)
   {
     var parameters = GetResponseParams(response);
+    var path = Path.Join("cache", $"{key}.json");
     var text = SimpleJson.SerializeObject(new
     {
       date = parameters["date"],
@@ -227,7 +229,7 @@ class Keygen
 
     Console.WriteLine("[INFO] [SetCache] Cache write: key={0}", key);
 
-    File.WriteAllText($"cache/{key}.json", text);
+    File.WriteAllText(path, text);
   }
 }
 
