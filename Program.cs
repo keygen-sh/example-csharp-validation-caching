@@ -3,7 +3,6 @@ using Org.BouncyCastle.Crypto.Signers;
 using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Utilities.Encoders;
 using RestSharp;
-using RestSharp.Serialization.Json;
 using System;
 using System.Linq;
 using System.Text;
@@ -152,13 +151,13 @@ class Keygen
   // GetDigest calculates a SHA-256 digest for the provided message.
   private string GetDigest(byte[] message)
   {
-    Sha256Digest sha256 = new Sha256Digest();
+    var sha256 = new Sha256Digest();
+    var digest = new byte[sha256.GetDigestSize()];
+
     sha256.BlockUpdate(message, 0, message.Length);
+    sha256.DoFinal(digest, 0);
 
-    byte[] hash = new byte[sha256.GetDigestSize()];
-    sha256.DoFinal(hash, 0);
-
-    var enc = Convert.ToBase64String(hash);
+    var enc = Convert.ToBase64String(digest);
 
     return $"sha-256={enc}";
   }
