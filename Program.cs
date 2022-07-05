@@ -244,11 +244,11 @@ class Program
 
     if ((bool) meta["valid"])
     {
-      Console.WriteLine("[INFO] [Main] License is valid! detail={0} code={1}", meta["detail"], meta["constant"]);
+      Console.WriteLine("[INFO] [Main] License is valid! detail={0} code={1}", meta["detail"], meta["code"]);
     }
     else
     {
-      Console.WriteLine("[INFO] [Main] License invalid! detail={0} code={1}", meta["detail"], meta["constant"]);
+      Console.WriteLine("[INFO] [Main] License invalid! detail={0} code={1}", meta["detail"], meta["code"]);
     }
   }
 }
